@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "xbowscommon.h"
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap VANILLA: (Base Layer) Default Layer
@@ -40,10 +42,73 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P1,    KC_P2,    KC_P3,    KC_PENT,
          KC_P0,       KC_PDOT),
   [1] = LAYOUT(
-    RESET,     EEP_RST,   KC_TRNS,   KC_TRNS,
-    KC_CALC,   KC_MYCM,   KC_MSEL,   KC_MAIL,
-    RGB_MOD,   RGB_VAI,   RGB_HUI,   KC_VOLD,
-    RGB_SPD,   RGB_TOG,   RGB_SPI,   KC_VOLU,
-    KC_TRNS,   RGB_VAD,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,          KC_TRNS)
+    MO(2),  KC_NO,   KC_NO,   KC_TRNS,
+    KC_NO,  KC_NO,   KC_NO,   KC_NO,
+    KC_NO,  RGB_VAI, KC_NO,   KC_NO,
+    KC_NO,  KC_NO,   KC_NO,   KC_NO,
+    KC_NO,  RGB_VAD, KC_NO,   KC_NO,
+        KC_NO,          KC_NO),
+  [2] = LAYOUT(
+    KC_TRNS,  KC_NO,  KC_NO,  KC_TRNS,
+    RESET,    KC_NO,  KC_NO,  KC_NO,
+    EEP_RST,  KC_NO,  KC_NO,  KC_NO,
+    KC_NO,    KC_NO,  KC_NO,  KC_NO,
+    KC_NO,    KC_NO,  KC_NO,  KC_NO,
+        KC_NO,    KC_NO)
 };
+
+#ifdef RGB_MATRIX_ENABLE
+
+int nummap[] = { 16, 17, 18, 12 };
+
+int _layer_size = 3;
+
+int _keyindices[][MATRIX_COLS] = {
+     {  NO_LED, NO_LED, NO_LED, NO_LED},
+     {  NO_LED, NO_LED, NO_LED, NO_LED},
+     {  NO_LED, NO_LED, NO_LED, NO_LED},
+     {  NO_LED, NO_LED, NO_LED, NO_LED},
+     {  NO_LED, NO_LED, NO_LED, NO_LED},
+     {  NO_LED, NO_LED, NO_LED, NO_LED}
+ };
+
+RgbColor _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
+  [0] = {
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_FN },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF }
+  },
+  [1] = {
+    { KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF }
+  },
+  [2] = {
+    { KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF }
+  },
+};
+
+
+void keyboard_post_init_user(void) {
+  xbc_initialize_rgb_layers(_layer_size, MATRIX_ROWS, MATRIX_COLS, _rgblayers, _keyindices, g_led_config);
+}
+
+
+void rgb_matrix_indicators_user(void) {
+  int alayer = biton32(layer_state);
+
+  xbc_set_colors();
+}
+
+#endif
