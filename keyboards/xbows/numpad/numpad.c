@@ -70,11 +70,4 @@
       4,   4,
  } };
 
-
- __attribute__ ((weak)) void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().num_lock) {
-        rgb_matrix_set_color(4, 0xFF, 0xFF, 0xFF);
-    }
-}
-
 #endif

@@ -26,16 +26,12 @@ typedef struct {
 int _xbc_layerSize = 0;
 int _xbc_rowSize = 0;
 int _xbc_colSize = 0;
-void* _xbc_rgbLayers_ptr = NULL;
-void* _xbc_keyIndicies_ptr = NULL;
 
 
 uint16_t xbc_get_keycode(int layer, int row, int col) {
   uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){.row = row, .col = col});
 
   kc = keycode_config(kc);
-
-  // return kc;
 
   return (kc == KC_TRNS && layer > 0) ? xbc_get_keycode(layer - 1, row, col) : kc;
 }
@@ -44,8 +40,6 @@ void xbc_initialize_rgb_layers(int layerSize, int rowSize, int colSize, RgbColor
 	_xbc_layerSize = layerSize;
 	_xbc_rowSize = rowSize;
 	_xbc_colSize = colSize;
-	_xbc_rgbLayers_ptr = &rgbLayers;
-	_xbc_keyIndicies_ptr = &keyIndicies;
 
 	for (int li = 0; li < _xbc_layerSize; li++) { 
 	    for (int ri = 0; ri < _xbc_rowSize; ri++) { 
@@ -75,10 +69,7 @@ void xbc_initialize_rgb_layers(int layerSize, int rowSize, int colSize, RgbColor
 	}
 }
 
-void xbc_set_colors(void) {
-	RgbColor rgbLayer[_xbc_rowSize][_xbc_colSize] = *_xbc_rgbLayers_ptr; 
-	int keyIndicies[_xbc_rowSize][_xbc_colSize] = *_xbc_keyIndicies_ptr;
-
+void xbc_set_colors(RgbColor rgbLayer[_xbc_rowSize][_xbc_colSize], int keyIndicies[_xbc_rowSize][_xbc_colSize]) {
 	for (int ri = 0; ri < _xbc_rowSize; ri++) { 
 	    for (int ci = 0; ci < _xbc_colSize; ci++) { 
 	      RgbColor c = rgbLayer[ri][ci];
