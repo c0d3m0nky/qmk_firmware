@@ -64,17 +64,17 @@ int nummap[] = { 16, 17, 18, 12 };
 int _layer_size = 3;
 
 int _keyindices[][MATRIX_COLS] = {
-     {  NO_LED, NO_LED, NO_LED, NO_LED},
-     {  NO_LED, NO_LED, NO_LED, NO_LED},
-     {  NO_LED, NO_LED, NO_LED, NO_LED},
-     {  NO_LED, NO_LED, NO_LED, NO_LED},
-     {  NO_LED, NO_LED, NO_LED, NO_LED},
-     {  NO_LED, NO_LED, NO_LED, NO_LED}
+     {  NO_LED, NO_LED, NO_LED, NO_LED  },
+     {  NO_LED, NO_LED, NO_LED, NO_LED  },
+     {  NO_LED, NO_LED, NO_LED, NO_LED  },
+     {  NO_LED, NO_LED, NO_LED, NO_LED  },
+     {  NO_LED, NO_LED, NO_LED, NO_LED  },
+     {  NO_LED, NO_LED, NO_LED, NO_LED  }
  };
 
 RgbColor _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = {
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_FN },
+    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_FN  },
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
@@ -82,7 +82,7 @@ RgbColor _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF }
   },
   [1] = {
-    { KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN },
+    { KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN  },
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
@@ -90,7 +90,7 @@ RgbColor _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF }
   },
   [2] = {
-    { KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN },
+    { KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN  },
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
     { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
@@ -108,7 +108,11 @@ void keyboard_post_init_user(void) {
 void rgb_matrix_indicators_user(void) {
   int alayer = biton32(layer_state);
 
-  xbc_set_colors();
+  xbc_set_colors(_rgblayers[alayer], _keyindices);
+
+  if (alayer == 0 && host_keyboard_led_state().num_lock) {
+    rgb_matrix_set_color(4, 0xFF, 0xFF, 0xFF);
+  }
 }
 
 #endif
