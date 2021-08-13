@@ -88,7 +88,7 @@ RgbColor _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
         { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_OFF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
         { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_OFF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
         { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  }
-        },
+    },
     [1] = {
         { KRGB_OFF, KRGB_DEF, KRGB_DEF,     KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_OFF, KRGB_DEF  },
         { KRGB_OFF, KRGB_OFF, KRGB_OFF,     KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_DEF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF  },
@@ -105,14 +105,9 @@ RgbColor _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
         { KRGB_OFF,       KRGB_OFF,       KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_DEF, KRGB_FN,  KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF  },
         { KRGB_OFF,       KRGB_OFF,       KRGB_OFF, KRGB_DEF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_DEF, KRGB_OFF, KRGB_FN,  KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF  }
     }
-
   };
 // @formatter:on
 
-
-void keyboard_post_init_user(void) {
-   xbc_initialize_rgb_layers(_layer_size);
-}
 
 RgbColor dev1 = KRGB_DEV1;
 RgbColor dev2 = KRGB_DEV2;
@@ -143,11 +138,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
+void xbc_set_colors_bricks(int li) {
+    for (int ri = 0; ri < MATRIX_ROWS; ri++) {
+        for (int ci = 0; ci < MATRIX_COLS; ci++) {
+            if (ri == 4 && ci == 6) {
+                RgbColor c = _rgblayers[li][ri][ci];
+
+                if (!c.def) {
+                    int ki = _keyindices[ri][ci];
+
+                    rgb_matrix_set_color(ki, c.r, c.g, c.b);
+                }
+            }
+        }
+    }
+}
+
+
+void xbc_set_colors_fine(int li) {
+    if (li < 0) return;
+
+    for (int ri = 0; ri < MATRIX_ROWS; ri++) {
+        for (int ci = 0; ci < MATRIX_COLS; ci++) {
+            int ki = _keyindices[ri][ci];
+
+            rgb_matrix_set_color(ki, KRGB_FN.r, KRGB_FN.g, KRGB_FN.b);
+        }
+    }
+}
+
+
 __attribute__ ((weak)) void rgb_matrix_indicators_user(void) {
     int alayer = biton32(layer_state);
 
     if (ledPin > 0) {
-        xbc_set_colors(_rgblayers[alayer], _keyindices);
+        xbc_set_colors_bricks(alayer);
     }
     else {
         rgb_matrix_set_color(65, 0, 0, 0);
@@ -189,3 +214,4 @@ __attribute__ ((weak)) void rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(44, 0xFF, 0xFF, 0xFF);
     }
 }
+
