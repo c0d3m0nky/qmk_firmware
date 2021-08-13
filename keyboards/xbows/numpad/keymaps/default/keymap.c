@@ -34,70 +34,74 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |        0     |    .   |
    * |-----------------------|
    */
-  [0] = LAYOUT(
-    KC_ESC ,  KC_TAB,   KC_BSPC,  MO(1),
-    KC_NLCK,  KC_PSLS,  KC_PAST,  KC_EQL,
-    KC_P7,    KC_P8,    KC_P9,    KC_PMNS,
-    KC_P4,    KC_P5,    KC_P6,    KC_PPLS,
-    KC_P1,    KC_P2,    KC_P3,    KC_PENT,
-         KC_P0,       KC_PDOT),
-  [1] = LAYOUT(
-    MO(2),  KC_NO,   KC_NO,   KC_TRNS,
-    KC_NO,  KC_NO,   KC_NO,   KC_NO,
-    KC_NO,  RGB_VAI, KC_NO,   KC_NO,
-    KC_NO,  KC_NO,   KC_NO,   KC_NO,
-    KC_NO,  RGB_VAD, KC_NO,   KC_NO,
-        KC_NO,          KC_NO),
-  [2] = LAYOUT(
-    KC_TRNS,  KC_NO,  KC_NO,  KC_TRNS,
-    RESET,    KC_NO,  KC_NO,  KC_NO,
-    EEP_RST,  KC_NO,  KC_NO,  KC_NO,
-    KC_NO,    KC_NO,  KC_NO,  KC_NO,
-    KC_NO,    KC_NO,  KC_NO,  KC_NO,
-        KC_NO,    KC_NO)
-};
+	[0] = LAYOUT(
+			KC_ESC,     KC_TAB,     KC_BSPC,    MO(1),
+			KC_NLCK,    KC_PSLS,    KC_PAST,    KC_EQL,
+			KC_P7,      KC_P8,      KC_P9,      KC_PMNS,
+			KC_P4,      KC_P5,      KC_P6,      KC_PPLS,
+			KC_P1,      KC_P2,      KC_P3,      KC_PENT,
+			KC_P0,                  KC_PDOT
+	),
+	[1] = LAYOUT(
+			MO(2),  KC_NO,      KC_NO,  MO(1),
+			KC_NO,  KC_NO,      KC_NO,  KC_NO,
+			KC_NO,  RGB_VAI,    KC_NO,  KC_NO,
+			KC_NO,  KC_NO,      KC_NO,  KC_NO,
+			KC_NO,  RGB_VAD,    KC_NO,  KC_NO,
+			KC_NO,              KC_NO
+	),
+	[2] = LAYOUT(
+			MO(2),      KC_NO,  KC_NO,  MO(1),
+			RESET,      KC_NO,  KC_NO,  KC_NO,
+			EEP_RST,    KC_NO,  KC_NO,  KC_NO,
+			KC_NO,      KC_NO,  KC_NO,  KC_NO,
+			KC_NO,      KC_NO,  KC_NO,  KC_NO,
+			KC_NO,              KC_NO
+	)
 
-#ifdef RGB_MATRIX_ENABLE
+};
 
 int nummap[] = { 16, 17, 18, 12 };
 
 int _layer_size = 3;
 
 int _keyindices[][MATRIX_COLS] = {
-     {  NO_LED, NO_LED, NO_LED, NO_LED  },
-     {  NO_LED, NO_LED, NO_LED, NO_LED  },
-     {  NO_LED, NO_LED, NO_LED, NO_LED  },
-     {  NO_LED, NO_LED, NO_LED, NO_LED  },
-     {  NO_LED, NO_LED, NO_LED, NO_LED  },
-     {  NO_LED, NO_LED, NO_LED, NO_LED  }
+      {  NO_LED, NO_LED, NO_LED, NO_LED  },
+      {  NO_LED, NO_LED, NO_LED, NO_LED  },
+      {  NO_LED, NO_LED, NO_LED, NO_LED  },
+      {  NO_LED, NO_LED, NO_LED, NO_LED  },
+      {  NO_LED, NO_LED, NO_LED, NO_LED  },
+      {  NO_LED, NO_LED, NO_LED, NO_LED  }
  };
 
+
 RgbColor _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = {
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_FN  },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF }
-  },
-  [1] = {
-    { KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN  },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF }
-  },
-  [2] = {
-    { KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN  },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF },
-    { KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF }
-  },
-};
+	[0] = {
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_FN   },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  }
+	},
+	[1] = {
+			{ KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN   },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  }
+	},
+	[2] = {
+			{ KRGB_FN,  KRGB_DEF, KRGB_DEF, KRGB_FN   },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  },
+			{ KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF  }
+	}
+
+  };
 
 
 void keyboard_post_init_user(void) {
@@ -114,5 +118,3 @@ void rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(4, 0xFF, 0xFF, 0xFF);
   }
 }
-
-#endif
