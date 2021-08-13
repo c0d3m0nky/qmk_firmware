@@ -108,7 +108,7 @@ void keyboard_post_init_user(void) {
 }
 
 
-void rgb_matrix_indicators_user(void) {
+__attribute__ ((weak)) void rgb_matrix_indicators_user(void) {
     int li = biton32(layer_state);
 
     xbc_set_colors(li);
