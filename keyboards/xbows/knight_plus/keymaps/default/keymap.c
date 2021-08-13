@@ -104,10 +104,9 @@ const RgbColor PROGMEM _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-int _layer_size = 3;
-size_t _layerMemSize = sizeof(KRGB_FN) * MATRIX_ROWS * MATRIX_COLS;
-RgbColor _lastLayer[MATRIX_ROWS][MATRIX_COLS];
-int _lastLayerIndex = -1;
+void keyboard_post_init_user(void) {
+    xbc_initialize_rgb_layers(3, _rgblayers, _keyindices);
+}
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -125,28 +124,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void xbc_set_colors(int li) {
-    if (li != _lastLayerIndex) {
-        _lastLayerIndex = li;
-        memcpy_P(_lastLayer, _rgblayers[li], _layerMemSize);
-    }
-
-    for (int ri = 0; ri < MATRIX_ROWS; ri++) {
-        for (int ci = 0; ci < MATRIX_COLS; ci++) {
-            RgbColor c = _lastLayer[ri][ci];
-
-            if (!c.def) {
-                rgb_matrix_set_color(_keyindices[ri][ci], c.r, c.g, c.b);
-            }
-        }
-    }
-}
-
-
 __attribute__ ((weak)) void rgb_matrix_indicators_user(void) {
-  xbc_set_colors(biton32(layer_state));
+    xbc_set_colors(biton32(layer_state));
 
-  if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(44, 0xFF, 0xFF, 0xFF);
-  }
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(44, 0xFF, 0xFF, 0xFF);
+    }
 }

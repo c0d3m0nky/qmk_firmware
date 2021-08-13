@@ -23,19 +23,34 @@ typedef struct {
 #define KRGB_WHITE      (RgbColor){ 0xFF, 0xFF, 0xFF, false }
 #define KRGB_DEF        (RgbColor){ 0, 0, 0, true }
 
-#define RGBLAYOUT( \
-    K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014,  \
-    K100, K101, K102, K103, K104, K105,       K107, K108, K109, K110, K111, K112, K113, K114,  \
-    K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, K214,  \
-    K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, K313, K314,  \
-    K400, K401, K402, K403, K404, K405, K406, K407, K408, K409, K410, K411, K412, K413,        \
-    K500, K501, K502,       K504, K505, K506, K507,       K509, K510, K511, K512, K513, K514   \
-) \
-{ \
-    { K000, K001, K002, K003,       K004, K005, K006,       K007, K008,     K009, K010, K011, K012, K013, K014      }, \
-    { K100, K101, K102, K103,       K104, K105, KRGB_DEF,   K107, K108,     K109, K110, K111, K112, K113, K114      }, \
-    { K200, K201, K202, K203,       K204, K205, K206,       K207, K208,     K209, K210, K211, K212, K213, K214      }, \
-    { K300, K301, K302, K303,       K304, K305, K306,       K307, K308,     K309, K310, K311, K312, K313, K314      }, \
-    { K400, K401, K402, K403,       K404, K405, K406,       K407, K408,     K409, K410, K411, K412, K413, KRGB_DEF  }, \
-    { K500, K501, K502, KRGB_DEF,   K504, K505, K506,       K507, KRGB_DEF, K509, K510, K511, K512, K513, K514      }  \
+size_t _xbc_layerMemSize = sizeof(KRGB_FN) * MATRIX_ROWS * MATRIX_COLS;
+
+int (*_xbc_keyindices_ptr)[MATRIX_COLS];
+const RgbColor (*_xbc_rgblayers_ptr)[MATRIX_ROWS][MATRIX_COLS];
+
+RgbColor _xbc_lastLayer[MATRIX_ROWS][MATRIX_COLS];
+int _xbc_lastLayerIndex = -1;
+
+
+void xbc_initialize_rgb_layers(int layerSize, const RgbColor rgblayers[layerSize][MATRIX_ROWS][MATRIX_COLS], int keyindices[MATRIX_ROWS][MATRIX_COLS]) {
+    _xbc_keyindices_ptr = keyindices;
+    _xbc_rgblayers_ptr = rgblayers;
+}
+
+
+void xbc_set_colors(int li) {
+    if (li != _xbc_lastLayerIndex) {
+        _xbc_lastLayerIndex = li;
+        memcpy_P(_xbc_lastLayer, _xbc_rgblayers_ptr[li], _xbc_layerMemSize);
+    }
+
+    for (int ri = 0; ri < MATRIX_ROWS; ri++) {
+        for (int ci = 0; ci < MATRIX_COLS; ci++) {
+            RgbColor c = _xbc_lastLayer[ri][ci];
+
+            if (!c.def) {
+                rgb_matrix_set_color(_xbc_keyindices_ptr[ri][ci], c.r, c.g, c.b);
+            }
+        }
+    }
 }
