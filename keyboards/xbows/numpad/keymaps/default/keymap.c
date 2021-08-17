@@ -71,7 +71,7 @@ int _keyindices[][MATRIX_COLS] = {
  };
 
 
-const RgbColor PROGMEM _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
+const KeyColor PROGMEM _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = RGBLAYOUT(
 			KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_FN,
 			KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF,
@@ -83,9 +83,9 @@ const RgbColor PROGMEM _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
 	[1] = RGBLAYOUT(
 			KRGB_FN,  KRGB_OFF,     KRGB_OFF, KRGB_FN,
 			KRGB_OFF, KRGB_OFF,     KRGB_OFF, KRGB_OFF,
-			KRGB_OFF, KRGB_WHITE,   KRGB_OFF, KRGB_OFF,
+			KRGB_OFF, KRGB_VAL,   KRGB_OFF, KRGB_OFF,
 			KRGB_OFF, KRGB_OFF,     KRGB_OFF, KRGB_OFF,
-			KRGB_OFF, KRGB_WHITE,   KRGB_OFF, KRGB_OFF,
+			KRGB_OFF, KRGB_VAL,   KRGB_OFF, KRGB_OFF,
 			KRGB_OFF,               KRGB_OFF
 	),
 	[2] = RGBLAYOUT(
@@ -114,6 +114,8 @@ __attribute__ ((weak)) void rgb_matrix_indicators_user(void) {
     xbc_set_colors(li);
 
     if (li == 0 && host_keyboard_led_state().num_lock) {
-        rgb_matrix_set_color(4, 0xFF, 0xFF, 0xFF);
+        KeyColor_s c = xbc_getKeyColor(KRGB_WHITE);
+
+        rgb_matrix_set_color(4, c.r, c.g, c.b);
     }
 }
