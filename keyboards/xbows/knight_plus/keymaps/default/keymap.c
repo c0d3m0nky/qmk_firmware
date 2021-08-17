@@ -46,12 +46,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_LCTL,    KC_LGUI,    KC_LALT,            KC_SPC,   KC_LCTL,    KC_LSFT,    KC_SPC,           KC_RALT,              MO(1),      KC_RCTL,    KC_LEFT,    KC_DOWN,    KC_RGHT
     ),
     [1] = LAYOUT(
-            KC_NO,      KC_MPLY,    KC_VOLD,    KC_VOLU,    KC_MUTE,    KC_F17,   KC_F18,   KC_F19,   KC_F20,   KC_F21,     KC_F22,   KC_F23,   KC_F24,   KC_NO,      KC_PSCR,
-            KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,              KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,
-            KC_NO,      KC_NO,      RGB_VAI,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_PGUP,
-            KC_CAPS,    KC_NO,      RGB_VAD,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_PGDN,
-            KC_NO,      KC_NO,      KC_CALC,    KC_NO,      KC_NO,      KC_NO,    MO(2),    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,                KC_NO,
-            KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,    KC_NO,    KC_NO,              KC_MENU,              MO(1),    KC_NO,    KC_WBAK,    KC_NO,      KC_WFWD
+            KC_NO,      KC_MPLY,    KC_VOLD,    KC_VOLU,    KC_MUTE,    KC_F17,   KC_F18,   KC_F19,   KC_F20,   KC_F21,     KC_F22,     KC_F23,   KC_F24,   KC_NO,      KC_PSCR,
+            KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,              KC_NO,    KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,      KC_NO,
+            KC_NO,      KC_NO,      RGB_VAI,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,      KC_PGUP,
+            KC_CAPS,    KC_NO,      RGB_VAD,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,      KC_PGDN,
+            KC_NO,      KC_NO,      KC_CALC,    KC_NO,      KC_NO,      KC_NO,    MO(2),    KC_NO,    KC_NO,    KC_NO,      M_LAMBDA,   KC_NO,    KC_NO,                KC_NO,
+            KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,    KC_NO,    KC_NO,              KC_MENU,                MO(1),    KC_NO,    KC_WBAK,    KC_NO,      KC_WFWD
     ),
     [2] = LAYOUT(
             RESET,  EEP_RST,    KC_NO,  KC_NO,  KC_NO,  DEBUG,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
@@ -85,12 +85,12 @@ const KeyColor PROGMEM _rgblayers[][MATRIX_ROWS][MATRIX_COLS] = {
             KRGB_PORTAL1,   KRGB_DEF,   KRGB_DEF,               KRGB_DEF,   KRGB_DEF,   KRGB_DEF, KRGB_DEF,             KRGB_DEF,               KRGB_FN,    KRGB_PORTAL2, KRGB_DEF, KRGB_DEF,       KRGB_DEF
     ),
     [1] = RGBLAYOUT(
-            KRGB_OFF, KRGB_MEDIA,   KRGB_MEDIA,   KRGB_MEDIA,   KRGB_MEDIA,   KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_OFF, KRGB_DEF,
-            KRGB_OFF, KRGB_OFF,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF,           KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF,
-            KRGB_OFF, KRGB_OFF,     KRGB_VAL,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_DEF,
-            KRGB_DEF, KRGB_OFF,     KRGB_VAL,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_DEF,
-            KRGB_OFF, KRGB_OFF,     KRGB_DEF,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF, KRGB_FN,  KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF,           KRGB_OFF,
-            KRGB_OFF, KRGB_OFF,     KRGB_OFF,                   KRGB_OFF,     KRGB_OFF, KRGB_OFF, KRGB_OFF,           KRGB_DEF,           KRGB_FN,  KRGB_OFF, KRGB_DEF, KRGB_OFF, KRGB_DEF
+            KRGB_OFF, KRGB_MEDIA,   KRGB_MEDIA,   KRGB_MEDIA,   KRGB_MEDIA,   KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF, KRGB_DEF,   KRGB_DEF, KRGB_DEF, KRGB_OFF, KRGB_DEF,
+            KRGB_OFF, KRGB_OFF,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF,           KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF,   KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF,
+            KRGB_OFF, KRGB_OFF,     KRGB_VAL,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF,   KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_DEF,
+            KRGB_DEF, KRGB_OFF,     KRGB_VAL,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF,   KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_DEF,
+            KRGB_OFF, KRGB_OFF,     KRGB_DEF,     KRGB_OFF,     KRGB_OFF,     KRGB_OFF, KRGB_FN,  KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_DEV2,  KRGB_OFF, KRGB_OFF,           KRGB_OFF,
+            KRGB_OFF, KRGB_OFF,     KRGB_OFF,                   KRGB_OFF,     KRGB_OFF, KRGB_OFF, KRGB_OFF,           KRGB_DEF,             KRGB_FN,  KRGB_OFF, KRGB_DEF, KRGB_OFF, KRGB_DEF
     ),
     [2] = RGBLAYOUT(
             KRGB_DANGER,    KRGB_DANGER,    KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_DEF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF, KRGB_OFF,
