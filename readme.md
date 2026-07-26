@@ -1,3 +1,22 @@
+
+Xbows Sparse Checkout
+
+```bash
+git clone ...
+
+cd ...
+git sparse-checkout init --no-cone
+
+echo '/*                                                                                                                                                                                        ─╯
+!/keyboards/
+/keyboards/xbows/
+' > .git/info/sparse-checkout
+
+git sparse-checkout reapply
+
+git checkout master
+```
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
