@@ -1,3 +1,28 @@
+Xbows Sparse Checkout
+
+```bash
+git clone ...
+
+cd ...
+git sparse-checkout init --no-cone
+
+echo '/*
+!/keyboards/
+/keyboards/xbows/
+' > .git/info/sparse-checkout
+
+git sparse-checkout reapply
+
+git checkout master
+
+# Fetch the submodules required to build (e.g. lib/lufa for AVR boards).
+# Sparse-checkout does not affect submodules, so this pulls them normally.
+# Either of the following works:
+qmk git-submodule
+# or, without the CLI:
+make git-submodule
+```
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
