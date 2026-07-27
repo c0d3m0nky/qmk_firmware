@@ -59,15 +59,16 @@ static const xbows_rgb_t PROGMEM xbows_palette[KRGB_COUNT] = {
 // Shared per-key indicator renderer for X-BOWS RGB Matrix boards.
 //
 // For the current highest active layer it paints:
-//   * caps_lock_led white while Caps Lock is on,
 //   * any KC_NO / KC_TRNS key off,
 //   * every other key its per-layer override color (KRGB_DEF keeps the default).
 //
+// LEDs listed in ignore_leds are skipped entirely, letting the caller own them
+// (e.g. Caps Lock / Num Lock indicators painted in the board's callback).
+//
 // layer_colors is a [num_layers][MATRIX_ROWS][MATRIX_COLS] table of
 // enum xbows_key_color values. Call this from rgb_matrix_indicators_advanced_kb().
-static inline void xbows_render_rgb_layers(uint8_t led_min, uint8_t led_max, const int8_t (*layer_colors)[MATRIX_ROWS][MATRIX_COLS], uint8_t num_layers, uint8_t caps_lock_led) {
-    uint8_t layer   = get_highest_layer(layer_state);
-    bool    caps_on = host_keyboard_led_state().caps_lock;
+static inline void xbows_render_rgb_layers(uint8_t led_min, uint8_t led_max, const int8_t (*layer_colors)[MATRIX_ROWS][MATRIX_COLS], uint8_t num_layers, const uint8_t *ignore_leds, uint8_t ignore_count) {
+    uint8_t layer = get_highest_layer(layer_state);
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -76,9 +77,15 @@ static inline void xbows_render_rgb_layers(uint8_t led_min, uint8_t led_max, con
                 continue;
             }
 
-            // Caps Lock: force the Caps key white on every layer while active.
-            if (caps_on && led == caps_lock_led) {
-                rgb_matrix_set_color(led, 0xFF, 0xFF, 0xFF);
+            // Skip LEDs the caller already handled (e.g. lock indicators).
+            bool ignored = false;
+            for (uint8_t i = 0; i < ignore_count; i++) {
+                if (ignore_leds[i] == led) {
+                    ignored = true;
+                    break;
+                }
+            }
+            if (ignored) {
                 continue;
             }
 

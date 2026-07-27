@@ -184,8 +184,17 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         return false;
     }
 
+    // Caps Lock: force the Caps key white on every layer while active, and tell
+    // the shared renderer to leave that LED alone.
+    uint8_t ignore[1];
+    uint8_t ignore_count = 0;
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(CAPS_LOCK_LED, 0xFF, 0xFF, 0xFF);
+        ignore[ignore_count++] = CAPS_LOCK_LED;
+    }
+
     uint8_t num_layers = sizeof(rgb_layer_colors) / sizeof(rgb_layer_colors[0]);
-    xbows_render_rgb_layers(led_min, led_max, rgb_layer_colors, num_layers, CAPS_LOCK_LED);
+    xbows_render_rgb_layers(led_min, led_max, rgb_layer_colors, num_layers, ignore, ignore_count);
     return true;
 }
 

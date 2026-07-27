@@ -53,13 +53,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,    KC_TRNS,    KC_CALC,    KC_TRNS,    KC_TRNS,    KC_TRNS,    MO(2),      KC_TRNS,  KC_TRNS,    KC_TRNS,    M_LAMBDA,   KC_TRNS,    KC_TRNS,                KC_TRNS,
       KC_TRNS,    KC_TRNS,    KC_TRNS,                KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,              KC_MENU,                MO(1),      KC_TRNS,    KC_WBAK,    KC_TRNS,  KC_WFWD
   ),
-  [2] = LAYOUT(
-      QK_BOOT,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    EE_CLR,     KC_TRNS,    KC_TRNS,  KC_TRNS,    DB_TOGG,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
-      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
-      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
-      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
-      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    MO(2),      KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                KC_TRNS,
-      KC_TRNS,    KC_TRNS,    KC_TRNS,                KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,              KC_TRNS,                MO(1),      KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS
+  [2] = LAYOUT(// Hardware layer
+      QK_BOOT,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      EE_CLR,     KC_NO,      KC_NO,    KC_NO,      DB_TOGG,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,                  KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      MO(2),      KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,                  KC_NO,
+      KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_NO,                KC_NO,                  MO(1),      KC_NO,      KC_NO,      KC_NO,    KC_NO
   )//                                                                         ▲▲▲▲▲▲▲                                                               |||||||
 };
 
