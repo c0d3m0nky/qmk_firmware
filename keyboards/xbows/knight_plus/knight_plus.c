@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  #include "quantum.h"
+ #include "rgb_colors.h"
  #ifdef RGB_MATRIX_ENABLE
  const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 
@@ -135,13 +136,56 @@
  } };
 
 
-bool rgb_matrix_indicators_kb(void) {
-    if (!rgb_matrix_indicators_user()) {
+/* Per-layer, per-key color overrides.
+ *
+ * Each entry is a named color from enum xbows_key_color (see rgb_colors.h),
+ * laid out in matrix order (mirrors the `keymaps` array in the keymap).
+ *   KRGB_DEF (aliased `___`) -> keep the default solid color.
+ *   KRGB_OFF                 -> turn the LED off.
+ *   any other palette entry  -> use that color.
+ *
+ * Any key that resolves to KC_NO or KC_TRNS on the active layer is also turned
+ * off, and the Caps Lock key is forced white whenever Caps Lock is on.
+ */
+#define ___ KRGB_DEF
+
+// LED index of the Caps Lock key (see g_led_config above).
+#define CAPS_LOCK_LED 44
+
+const int8_t PROGMEM rgb_layer_colors[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = {
+    { ___,           ___,           ___,           ___,           ___,           KRGB_DEV2,     ___,           ___,           ___,           KRGB_DEV1,     KRGB_DEV2,     KRGB_DEV2,     ___,           ___,           KRGB_MISNAMED },
+    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           KRGB_MISNAMED },
+    { KRGB_MISNAMED, KRGB_HOME,     KRGB_HOME,     KRGB_HOME,     KRGB_HOME,     ___,           ___,           ___,           KRGB_HOME,     KRGB_HOME,     KRGB_HOME,     KRGB_HOME,     ___,           ___,           KRGB_MISNAMED },
+    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { KRGB_PORTAL1,  ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           KRGB_FN,       KRGB_PORTAL2,  ___,           ___,           ___           }
+    },
+    [1] = {
+    { ___,           KRGB_MEDIA,    KRGB_MEDIA,    KRGB_MEDIA,    KRGB_MEDIA,    ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           KRGB_VAL,      ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           KRGB_VAL,      ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           ___,           ___,           ___,           ___,           KRGB_FN,       ___,           ___,           ___,           KRGB_DEV2,     ___,           ___,           ___,           ___           },
+    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           KRGB_FN,       ___,           ___,           ___,           ___           }
+    },
+    [2] = {
+    { KRGB_DANGER,   ___,           ___,           ___,           ___,           KRGB_DANGER,   ___,           ___,           ___,           KRGB_DEV2,     ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           ___,           ___,           ___,           ___,           KRGB_FN,       ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           KRGB_FN,       ___,           ___,           ___,           ___           }
+    }
+};
+
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
     }
-    if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(44, 0xFF, 0xFF, 0xFF);
-    }
+
+    uint8_t num_layers = sizeof(rgb_layer_colors) / sizeof(rgb_layer_colors[0]);
+    xbows_render_rgb_layers(led_min, led_max, rgb_layer_colors, num_layers, CAPS_LOCK_LED);
     return true;
 }
 
