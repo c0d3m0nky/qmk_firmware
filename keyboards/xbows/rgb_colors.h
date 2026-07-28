@@ -15,6 +15,11 @@
 #include <avr/pgmspace.h>
 #include "quantum.h"
 
+#ifdef RGB_MATRIX_ENABLE
+#include <lib/lib8tion/lib8tion.h>
+#include "led_tables.h"
+#endif
+
 enum xbows_key_color {
     KRGB_DEF = -1, // keep the default solid color
     KRGB_OFF = 0,  // off
@@ -56,6 +61,20 @@ static const xbows_rgb_t PROGMEM xbows_palette[KRGB_COUNT] = {
 
 #ifdef RGB_MATRIX_ENABLE
 
+// Effective per-key brightness, matching what the built-in effects emit.
+//
+// rgb_matrix_get_val() is already clamped to max_brightness, and the effects
+// additionally push val through the CIE1931 perceptual curve inside
+// hsv_to_rgb(). Override colors set via rgb_matrix_set_color() bypass that
+// pipeline, so we reproduce the same curve here to keep brightness consistent.
+static inline uint8_t xbows_effective_val(void) {
+#ifdef USE_CIE1931_CURVE
+    return pgm_read_byte(&CIE1931_CURVE[rgb_matrix_get_val()]);
+#else
+    return rgb_matrix_get_val();
+#endif
+}
+
 // Shared per-key indicator renderer for X-BOWS RGB Matrix boards.
 //
 // For the current highest active layer it paints:
@@ -69,6 +88,11 @@ static const xbows_rgb_t PROGMEM xbows_palette[KRGB_COUNT] = {
 // enum xbows_key_color values. Call this from rgb_matrix_indicators_advanced_kb().
 static inline void xbows_render_rgb_layers(uint8_t led_min, uint8_t led_max, const int8_t (*layer_colors)[MATRIX_ROWS][MATRIX_COLS], uint8_t num_layers, const uint8_t *ignore_leds, uint8_t ignore_count) {
     uint8_t layer = get_highest_layer(layer_state);
+
+    // Current global brightness; override colors are scaled by this so they
+    // track the dim/brighten keys just like the built-in effects do (including
+    // the CIE1931 perceptual curve those effects apply).
+    uint8_t val = xbows_effective_val();
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -104,7 +128,7 @@ static inline void xbows_render_rgb_layers(uint8_t led_min, uint8_t led_max, con
                     uint8_t r = pgm_read_byte(&xbows_palette[color].r);
                     uint8_t g = pgm_read_byte(&xbows_palette[color].g);
                     uint8_t b = pgm_read_byte(&xbows_palette[color].b);
-                    rgb_matrix_set_color(led, r, g, b);
+                    rgb_matrix_set_color(led, scale8(r, val), scale8(g, val), scale8(b, val));
                 }
             }
         }

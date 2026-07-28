@@ -172,8 +172,8 @@ const int8_t PROGMEM rgb_layer_colors[][MATRIX_ROWS][MATRIX_COLS] = {
     [2] = {// Hardware layer
     { KRGB_DANGER,   ___,           ___,           ___,           ___,           KRGB_DANGER,   ___,           ___,           ___,           KRGB_DEV2,     ___,           ___,           ___,           ___,           ___           },
     { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
-    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
-    { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           KRGB_VAL,      ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
+    { ___,           ___,           KRGB_VAL,      ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
     { ___,           ___,           ___,           ___,           ___,           ___,           KRGB_FN,       ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___           },
     { ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           ___,           KRGB_FN,       ___,           ___,           ___,           ___           }
     }//                                                                                         ▲▲▲▲▲▲▲                                                                    |||||||||
@@ -185,11 +185,13 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     }
 
     // Caps Lock: force the Caps key white on every layer while active, and tell
-    // the shared renderer to leave that LED alone.
+    // the shared renderer to leave that LED alone. Scale by the global
+    // brightness so the indicator tracks the dim/brighten keys.
     uint8_t ignore[1];
     uint8_t ignore_count = 0;
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(CAPS_LOCK_LED, 0xFF, 0xFF, 0xFF);
+        uint8_t val = xbows_effective_val();
+        rgb_matrix_set_color(CAPS_LOCK_LED, val, val, val);
         ignore[ignore_count++] = CAPS_LOCK_LED;
     }
 

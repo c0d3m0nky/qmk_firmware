@@ -49,16 +49,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT(
       KC_TRNS,    KC_MPLY,    KC_VOLD,    KC_VOLU,    KC_MUTE,    KC_F17,     KC_F18,     KC_F19,   KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,     KC_TRNS,    KC_PSCR,
       KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
-      KC_TRNS,    KC_TRNS,    RM_VALU,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_PGUP,
-      KC_CAPS,    KC_TRNS,    RM_VALD,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_PGDN,
+      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_PGUP,
+      KC_CAPS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_PGDN,
       KC_TRNS,    KC_TRNS,    KC_CALC,    KC_TRNS,    KC_TRNS,    KC_TRNS,    MO_NEXT,    KC_TRNS,  KC_TRNS,    KC_TRNS,    M_LAMBDA,   KC_TRNS,    KC_TRNS,                KC_TRNS,
       KC_TRNS,    KC_TRNS,    KC_TRNS,                KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,              KC_MENU,                MO_NEXT,    KC_TRNS,    KC_WBAK,    KC_TRNS,  KC_WFWD
   ),
   [2] = LAYOUT(// Hardware layer
       QK_BOOT,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      EE_CLR,     KC_NO,      KC_NO,    KC_NO,      DB_TOGG,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
       KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,                  KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+      KC_NO,      KC_NO,      RM_VALU,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+      KC_NO,      KC_NO,      RM_VALD,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
       KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      MO_NEXT,    KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,                  KC_NO,
       KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_NO,                KC_NO,                  MO_NEXT,    KC_NO,      KC_NO,      KC_NO,    KC_NO
   )//                                                                         ▲▲▲▲▲▲▲                                                               |||||||
