@@ -43,17 +43,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT(
     MO(2),    KC_TRNS,  KC_TRNS,  MO(1),
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  RM_VALU,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  RM_VALD,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,            KC_TRNS
   ),
   [2] = LAYOUT(// Hardware layer
     MO(2),    KC_NO,    KC_NO,    MO(1),
-    QK_BOOT,  KC_NO,    KC_NO,    KC_NO,
+    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+    QK_BOOT,  RM_VALU,  KC_NO,    KC_NO,
     EE_CLR,   KC_NO,    KC_NO,    KC_NO,
-    KC_NO,    KC_NO,    KC_NO,    KC_NO,
-    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+    KC_NO,    RM_VALD,  KC_NO,    KC_NO,
     KC_NO,              KC_NO
   )
 };
